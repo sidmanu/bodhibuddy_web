@@ -1,0 +1,32 @@
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+	var data = google.visualization.arrayToDataTable([
+	  ['Day', 'Dialogues'],
+	{% for d in daily_count_list %}
+		['{{d.dialogue_date}}', {{d.count}}],	
+	{% endfor %}
+	]);
+
+	var options = {
+	  title: 'Dialogues in the last 15 days',
+	  curveType: 'function',
+	  legend: { position: 'bottom' }
+	};
+
+	var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+	chart.draw(data, options);
+  }
+</script>
+
+<div class="row">
+	<div class="col-xs-12 ">
+ 		<div id="curve_chart" style="width:fill-parent;margin-right:5px;margin-left:5px"></div>
+	</div>
+</div>
+
